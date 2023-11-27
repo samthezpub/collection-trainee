@@ -1,11 +1,13 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Main {
     public static void main(String[] args) {
 
-        Long from = System.currentTimeMillis();
+
 
         /*
          *THEORY
@@ -26,28 +28,55 @@ public class Main {
          *
         */
 
-//        HashMap<Integer, User> userHashMap = new HashMap<>();
-//        userHashMap.put(0, new User("Oleg", 10, 100));
-//        userHashMap.put(1, new User("Vasiliy", 12, 1002));
-//        userHashMap.put(2, new User("Kira", 14, 1003));
-//        userHashMap.put(null, new User("Dadya", 41, 20000));
-//
+
+        /*
+        *THEORY
+        * HashMap имеет структуру ключ-значение.
+        * HashMap сортирует элементы по хеш-коду
+        * Ключ может быть чем угодно что наследуется от Object
+        * Ключ должен быть уникальным, может быть null
+        * Наиболее часто применяемые типы ключа - Integer, String
+        * Что интересно, я могу написать HashMap даже такого формата
+        * HashMap<User, User>
+        * И два объекта при выводе в System.out.println HashMap будут преобразовываться в toString
+        * {User{name='В', age=10, salary=200}=User{name='Oleg', age=10, salary=100}}
+        * И иметь такую странную запись.
+        * Думаю, можно использовать это как список для ЗАГСА в очень извращённой форме
+        * */
+//        HashMap<User, User> userHashMap = new HashMap<>();
+//        userHashMap.put(new User("A",10, 200), new User("Oleg", 10, 100));
+//        userHashMap.put(new User("B",10, 200), new User("Oleg", 10, 100));
+//        System.out.println(userHashMap);
 //        userHashMap.forEach((integer, user) -> System.out.println("" +integer + user));
 
-//        HashMap<Integer,User> userHashMap = new HashMap<>();
-//        User user = new User("Володя", 10, 2500);
-//        User userSecond = new User("Володя", 10, 2500);
-//
-//        for (int i = 0; i < 1000000000; i++) {
-//            boolean equals = user.equals(userSecond);
-//            if (!equals){
-//                System.out.printf("НЕ РАВНЫ");
-//                System.out.printf("Hashcode %s \n", user.hashCode());
-//
-//                System.out.printf("Hashcode %s \n", userSecond.hashCode());
-//            }
-//        }
 
+
+        Long from = System.currentTimeMillis();
+
+
+        /*
+        *THEORY
+        * HashSet может содержать только уникальные элементы
+        * HashSet может содержать null
+        * HashSet не имеет get
+        * HashSet не гарантирует сохранение порядка элементов
+        * HashSet не имеет индексации элементов
+        *
+        * Эти наблюдения дают понять что лучше использовать HashSet в целях когда вывести все значения
+        * Например: вывести все типы газов существующих на нашей планете
+        * */
+
+        HashSet<String> hashSet = new HashSet<>();
+        hashSet.add(null);
+        hashSet.add(null);
+        hashSet.add("Айфон");
+        hashSet.add("LG");
+        hashSet.add("Айфон");
+        hashSet.add("Realme");
+
+
+        // nullАйфонLGRealme2
+        hashSet.stream().forEach(System.out::print);
 
         Long to = System.currentTimeMillis();
         System.out.println(to - from);
